@@ -14,7 +14,7 @@ import java.sql.Connection;
 
 public class TodoDatabase extends SQLiteOpenHelper {
     private static TodoDatabase instance;
-    private static final String dbName = "toDos.db";
+    private static final String dbName = "todos.db";
     private static final int version = 1;
 
     private TodoDatabase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -28,44 +28,63 @@ public class TodoDatabase extends SQLiteOpenHelper {
         }
         return instance;}
 
-//    //CLOSE DB
-//    public void close(){
-//        SQLiteDatabase.close();
-//    }
 
     @Override
-    public void onCreate(SQLiteDatabase sqliteDatabase) {
-        sqliteDatabase.execSQL("create table todos (id INTEGER PRIMARY KEY AUTOINCREMENT, name title, name completed);");
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table todos (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, completed INTEGER);");
       // ADD SAMPLE TO DO ITEMS
+        db = getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("title","Do this");
+//        values.put("completed",1);
+//        db.insert("todos",null,values);
+//        values.put("title","Do that");
+//        values.put("completed",1);
+//        db.insert("todos",null,values);
+//        values.put("title","Do so");
+//        values.put("completed",0);
+//        db.insert("todos",null,values);
+
+    }
+
+    //CREATE INPUT METHOD
+    public void insert(String title, int completed) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title","Maak app af");
-        values.put("completed",0);
-        db.insert("todos",null,values);
-        values.put("title","Doe de was");
-        values.put("completed",1);
-        db.insert("todos",null,values);
-        values.put("title","Stuur een mail naar werk");
-        values.put("completed",0);
+        values.put("title", title);
+        values.put("completed", completed);
         db.insert("todos",null,values);
 
     }
 
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqliteDatabase, int i, int i1) {
-        sqliteDatabase.execSQL("DROP TABLE IF EXISTS " + "todos");
-        onCreate(sqliteDatabase);    }
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + "todos");
+        onCreate(db);    }
 
-    //CREATE TO DO
-    public void createToDo(String todoText){
 
-    }
 
     public Cursor selectAll(){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM todos",null);
-        return cursor; }
+        return cursor;
+    }
+
+    public void updateItem(long id, int completed){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("completed", completed);
+        db.update("todos",values,"_id="+id, null);
+
+    }
+
+    public void deleteItem(long id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("todos","_id="+id,null);
+
+    }
+
 
 
 }
