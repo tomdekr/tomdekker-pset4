@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //COMPILE AND RUN DATABASE
         db = TodoDatabase.getInstance(getApplicationContext());
         Cursor overview = db.selectAll();
         myToDoAdapter = new ToDoAdapter(this, overview);

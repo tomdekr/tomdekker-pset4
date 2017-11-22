@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.Connection;
-
 /**
  * Created by Tom_D on 11/19/2017.
  */
@@ -32,22 +30,8 @@ public class TodoDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table todos (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, completed INTEGER);");
-      // ADD SAMPLE TO DO ITEMS
-//        db = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("title","Do this");
-//        values.put("completed",1);
-//        db.insert("todos",null,values);
-//        values.put("title","Do that");
-//        values.put("completed",1);
-//        db.insert("todos",null,values);
-//        values.put("title","Do so");
-//        values.put("completed",0);
-//        db.insert("todos",null,values);
+        }
 
-    }
-
-    //CREATE INPUT METHOD
     public void insert(String title, int completed) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -56,7 +40,6 @@ public class TodoDatabase extends SQLiteOpenHelper {
         db.insert("todos",null,values);
 
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -84,7 +67,4 @@ public class TodoDatabase extends SQLiteOpenHelper {
         db.delete("todos","_id="+id,null);
 
     }
-
-
-
 }
