@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context="com.example.tom_d.to_dolist.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:fontFamily="sans-serif"
+        android:text="This is your to do list:"
+        android:textSize="20sp"
+        android:textStyle="italic" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +24,7 @@
         <ListView
             android:id="@+id/mListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="405dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -31,13 +39,16 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Add task"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="ADD"/>
+            android:text="ADD"
+            android:onClick="add"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 </android.widget.LinearLayout>
